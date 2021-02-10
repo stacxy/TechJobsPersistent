@@ -23,5 +23,6 @@ namespace TechJobsPersistent.Models
         {
             Name = name;
         }
+
     }
 }
