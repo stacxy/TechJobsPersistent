@@ -59,9 +59,9 @@ namespace TechJobsPersistent.Controllers
         //*
         public IActionResult About(int id)
         {
-            Employer model = context.Employers.Find(id);
-            ViewBag.Employer = model;
-            return View(model);
+            Employer theEmployer = context.Employers.Find(id);
+            
+            return View(theEmployer);
         }
     }
 }

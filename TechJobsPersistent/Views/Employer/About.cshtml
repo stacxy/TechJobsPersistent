@@ -1,9 +1,15 @@
-﻿
-@Model TechJobsPersistent.Models.Employer
+﻿@using TechJobsPersistent.Models;
+@model Employer
 
-<h1>Employer: Name</h1>
+<h1>Employer: @Model.Name</h1>
 
 <div>
     <p>Name: @Model.Name</p>
     <p>Location: @Model.Location</p>
+</div>
+
+<div>
+    <p>
+        <a asp-controller="List" asp-action="Jobs" asp-route-column="employer" asp-route-value="@Model.Name">Jobs Available</a>
+    </p>
 </div>
