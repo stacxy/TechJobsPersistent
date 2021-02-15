@@ -13,7 +13,7 @@
     <div class="form-group">
         <label asp-for="Employer"></label>
         <select asp-for="EmployerId" asp-items="Model.Employer">
-            <option value="">Select Employer</option>
+            <option>Select Employer</option>
         </select>
         <a asp-controller="Employer" asp-action="Add">New Employer</a>
         <span asp-validation-for="EmployerId"></span>

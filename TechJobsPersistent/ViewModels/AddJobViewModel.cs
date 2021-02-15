@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using TechJobsPersistent.Models;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TechJobsPersistent.ViewModels
 {
@@ -17,10 +16,8 @@ namespace TechJobsPersistent.ViewModels
         [Required(ErrorMessage = "Required")]
         public int EmployerId { get; set; }
 
-        //[Required(ErrorMessage = "Are you sure this job doesn't require any skills?")]
         public List<SelectListItem> Skills { get; set; }
 
-        
         public List<SelectListItem> Employer { get; set; }
 
         public AddJobViewModel(List<Employer> employers, List<Skill> skills)

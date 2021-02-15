@@ -46,52 +46,37 @@ namespace TechJobsPersistent.Controllers
             if (ModelState.IsValid)
             {
                 Employer employer = context.Employers.Find(viewModel.EmployerId);
-                ;
-                
+                List<JobSkill> jobSkills = new List<JobSkill>();
                 Job newJob = new Job()
                 {
                     Name = viewModel.Name,
-                    Employer = employer
+                    Employer = employer,
+                    JobSkills = jobSkills
                 };
-                //Console.WriteLine(newJob.Id);
-                //Console.WriteLine(newJob.Name);
-
-                foreach (var skill in selectedSkills)
-                //for (var i = 0; i < selectedSkills.Length; i++)
+      
+                for (var i = 0; i < selectedSkills.Length; i++)
                 {
-                    int skillId = int.Parse(skill);
-                    
+                    int skillId = int.Parse(selectedSkills[i]);
+                    int jobId = newJob.Id;
+                   
+                        JobSkill jobSkill = new JobSkill()
+                        {
+                            JobId = jobId,
+                            SkillId = skillId
+                        };
+                       
+                        newJob.JobSkills.Add(jobSkill);
 
-                    JobSkill jobSkill = new JobSkill()
-                    {
-                        JobId = newJob.Id,
-                        SkillId = skillId
-                    };
-                    
-                    context.JobSkills.Add(jobSkill);
                 }
                 context.Jobs.Add(newJob);
-                context.SaveChanges();
+                context.SaveChanges(); 
 
                 return Redirect("Index");
             }
           
-            return View("AddJob", rePop(viewModel));
-        }
-
-        private AddJobViewModel rePop(AddJobViewModel mod)
-        {
-            List<Skill> skills = context.Skills.ToList();
-            List<Employer> employers = context.Employers.ToList();
-            AddJobViewModel addJobViewModel = new AddJobViewModel(employers, skills)
-            {
-                Name = mod.Name
-                
-            };
-            
-            return addJobViewModel;
-        }
-
+            return View("AddJob", RePop(viewModel));
+        } 
+        
         public IActionResult Detail(int id)
         {
             Job theJob = context.Jobs
@@ -106,7 +91,22 @@ namespace TechJobsPersistent.Controllers
             JobDetailViewModel viewModel = new JobDetailViewModel(theJob, jobSkills);
             return View(viewModel);
         }
-    }//TODO VIEW correct skill value error repopulate after validation error
-    //TODO possibly return to page after adding
+
+        //repopulates view if modelstate invalid
+        private AddJobViewModel RePop(AddJobViewModel mod)
+        {
+            List<Skill> skills = context.Skills.ToList();
+            List<Employer> employers = context.Employers.ToList();
+            AddJobViewModel addJobViewModel = new AddJobViewModel(employers, skills)
+            {
+                Name = mod.Name
+            };
+            
+            return addJobViewModel;
+        }
+
+       
+    }
+   
 
 }
