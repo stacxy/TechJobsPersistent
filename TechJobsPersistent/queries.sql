@@ -11,4 +11,8 @@ FROM employers
 WHERE Location = "St. Louis";
 
 #--Part 3
+SELECT Name, Description
+from techjobs.skills
+INNER JOIN jobskills ON skills.id = jobskills.SkillId
+ORDER BY Name;
 

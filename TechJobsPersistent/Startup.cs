@@ -25,10 +25,11 @@ namespace TechJobsPersistent
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<JobDbContext>(options =>
-      options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            //      services.AddDbContext<JobDbContext>(options =>
+            //options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +49,7 @@ namespace TechJobsPersistent
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -56,6 +57,7 @@ namespace TechJobsPersistent
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
